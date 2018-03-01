@@ -3,7 +3,6 @@ const jsonTokens = require('./jsonTokens')
 const Type = require('./Type')
 const parsedObject = require('./parsedObject')
 
-
 const parsedArray = (tokens, i) => {
     // i 指向 [
     const arr = []
@@ -53,7 +52,7 @@ const parsedArray = (tokens, i) => {
 }
 
 
-module.export = parsedArray
+module.exports = parsedArray
 
 if(require.main === module) {
     // test parsedArray 1

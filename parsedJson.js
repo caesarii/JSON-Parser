@@ -1,8 +1,8 @@
 const jsonTokens = require('./jsonTokens')
 const {log, ensure} = require('./utils')
 const Type = require('./Type')
-
-
+const parsedArray = require('./parsedArray')
+const parsedObject = require('./parsedObject')
 
 const parsedJson = (tokens) => {
     let json = null
@@ -17,7 +17,7 @@ const parsedJson = (tokens) => {
             i = offset
         } else if(t.type === Type.braceLeft) {
             // 处理对象
-            const [obj, offset] = objEnd(tokens, i)
+            const [obj, offset] = parsedObject(tokens, i)
             json = obj
             i = offset
         } else {
@@ -29,19 +29,6 @@ const parsedJson = (tokens) => {
 }
 
 if(require.main === module) {
-    
-    
-    
-    
-    
-    // test parsed json
-    
-    const json = parsedJson(tokens)
-    log('json', json)
-    
-    const json2 = parsedJson(tokens2)
-    log('json 2', json2)
-    
     
     const code3 = `[{
         "name": "uga",
