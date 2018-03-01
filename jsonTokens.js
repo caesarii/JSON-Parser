@@ -131,44 +131,56 @@ module.exports = jsonTokens
 
 if(require.main === module) {
     
-    // test string end
-    const str1 = '"12345"123false'
-    const [ts1, i] = stringEnd(str1, 0)
-    ensure(ts1 === '12345' && i === 6, 'test string end')
-
-    // test number end
-    const [ts2, j] = numberEnd(str1, 7)
-    ensure(ts2 === '123' && j === 9, 'test number end')
+    // // test string end
+    // const str1 = '"12345"123false'
+    // const [ts1, i] = stringEnd(str1, 0)
+    // ensure(ts1 === '12345' && i === 6, 'test string end')
+    //
+    // // test number end
+    // const [ts2, j] = numberEnd(str1, 7)
+    // ensure(ts2 === '123' && j === 9, 'test number end')
+    //
+    // // test keyword end
+    // const [ts3, k] = keywordEnd(str1, 10)
+    // ensure(ts3 === 'false' && k === 14, 'test keyword end')
+    //
+    // // test json tokens 1
+    // const code = `
+    // {
+    //     "n\\\"ame": "gua",
+    //   "h\\\teight": 169,
+    //   "b\\\nool": false,
+    //   "n\\\\ull": null
+    // }`
+    //
+    // const ts = jsonTokens(code)
+    // ts.forEach(t => t.log())
+    // log('json tokens 1', ts)
+    //
+    // // test json tokens 2
+    // const code2 = `
+    // [{
+    //        "name": "gua",
+    //         "height": 169,
+    //         "boolean": true,
+    //         "null": null
+    //     },
+    //         true, false, null, 123, "123"
+    // ]
+    // `
+    // const ts4 = jsonTokens(code2)
+    // ts4.forEach(t => t.log())
+    // log('json tokens 2', ts4)
     
-    // test keyword end
-    const [ts3, k] = keywordEnd(str1, 10)
-    ensure(ts3 === 'false' && k === 14, 'test keyword end')
-    
-    // test json tokens 1
-    const code = `
-    {
-        "n\\\"ame": "gua",
-      "h\\\teight": 169,
-      "b\\\nool": false,
-      "n\\\\ull": null
+    // test tokens 3
+    const code3 = `{
+        "name": "gua",
+        "obj": {
+            "age": 12
+        }
     }`
     
-    const ts = jsonTokens(code)
-    ts.forEach(t => t.log())
-    log('json tokens 1', ts)
-    
-    // test json tokens 2
-    const code2 = `
-    [{
-           "name": "gua",
-            "height": 169,
-            "boolean": true,
-            "null": null
-        },
-            true, false, null, 123, "123"
-    ]
-    `
-    const ts4 = jsonTokens(code2)
-    ts4.forEach(t => t.log())
-    log('json tokens 2', ts4)
+    const ts5 = jsonTokens(code3)
+    ts5.forEach(t => t.log())
+    log('json tokens 3', ts5)
 }
