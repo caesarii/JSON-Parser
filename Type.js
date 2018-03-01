@@ -2,6 +2,7 @@
 // 枚举类型
 class Type {
     constructor() {
+        // auto 是单字符符号的类型
         this.auto = 0
         this.colon = 1
         this.comma = 2
