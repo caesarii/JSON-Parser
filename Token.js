@@ -3,6 +3,7 @@ const Type = require('./Type.js')
 // log('type', Type)
 class Token{
     constructor(type, value) {
+        log('token', type, value)
         // 单字符符号
         const d = {
             ':': Type.colon,
@@ -15,7 +16,7 @@ class Token{
         // log('type', Type)
         if(type === Type.auto) {
             // 处理单字符符号
-            this.type = d[type]
+            this.type = d[value]
         } else {
             this.type = type
         }
