@@ -127,6 +127,8 @@ const jsonTokens = (code) => {
     return tokens
 }
 
+module.exports = jsonTokens
+
 if(require.main === module) {
     
     // test string end
@@ -153,5 +155,5 @@ if(require.main === module) {
     
     const ts = jsonTokens(code)
     ts.forEach(t => t.log())
-    // log('json tokens 1', ts)
+    log('json tokens 1', ts)
 }
