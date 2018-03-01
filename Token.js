@@ -1,6 +1,6 @@
 const {log, } = require('./utils')
 const Type = require('./Type.js')
-
+// log('type', Type)
 class Token{
     constructor(type, value) {
         // 单字符符号
@@ -12,7 +12,7 @@ class Token{
             '[': Type.bracketLeft,
             ']': Type.bracketRight
         }
-        
+        // log('type', Type)
         if(type === Type.auto) {
             // 处理单字符符号
             this.type = d[type]
@@ -22,7 +22,7 @@ class Token{
         this.value = value
     }
     log() {
-        log(`({${this.value})`)
+        log(`({${this.value}})`)
     }
 }
 
