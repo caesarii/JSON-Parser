@@ -3,16 +3,16 @@
 class Type {
     constructor() {
         // auto 是单字符符号的类型
-        this.auto = 0
-        this.colon = 1
-        this.comma = 2
-        this.braceLeft = 3
-        this.braceRight = 4
-        this.bracketLeft = 5
-        this.bracketRight = 6
-        this.number = 7
-        this.string = 8
-        this.token = 9
+        this.auto = 'auto' // 0
+        this.colon = 'colon' // 1
+        this.comma = 'comma' // 2
+        this.braceLeft = 'braceLeft' // 3
+        this.braceRight = 'barceRight' //4
+        this.bracketLeft = 'bracketLeft' //5
+        this.bracketRight = 'bracketRight' //6
+        this.number = 'number' //7
+        this.string = 'string' //8
+        this.token = 'token' //9
     }
 }
 
