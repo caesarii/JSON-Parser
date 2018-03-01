@@ -118,7 +118,7 @@ const jsonTokens = (code) => {
             tokens.push(t)
         } else {
             //
-            log('Error: 非预期的字符', c.charCodeAt(0))
+            log('Error: 非预期的字符') // c.charCodeAt(0)
         }
         // i 指向下一个字符
         i = i + 1
@@ -144,7 +144,7 @@ if(require.main === module) {
     const [ts3, k] = keywordEnd(str1, 10)
     ensure(ts3 === 'false' && k === 14, 'test keyword end')
     
-    // test json tokens
+    // test json tokens 1
     const code = `
     {
         "n\\\"ame": "gua",
@@ -156,4 +156,19 @@ if(require.main === module) {
     const ts = jsonTokens(code)
     ts.forEach(t => t.log())
     log('json tokens 1', ts)
+    
+    // test json tokens 2
+    const code2 = `
+    [{
+           "name": "gua",
+            "height": 169,
+            "boolean": true,
+            "null": null
+        },
+            true, false, null, 123, "123"
+    ]
+    `
+    const ts4 = jsonTokens(code2)
+    ts4.forEach(t => t.log())
+    log('json tokens 2', ts4)
 }
