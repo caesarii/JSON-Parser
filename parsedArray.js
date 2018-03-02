@@ -1,7 +1,8 @@
 const {log, ensure} = require('./utils')
 const jsonTokens = require('./jsonTokens')
 const Type = require('./Type')
-const parsedObject = require('./parsedObject')
+let parsedObject
+parsedObject =  parsedObject || require('./parsedObject')
 
 const parsedArray = (tokens, i) => {
     // i 指向 [
@@ -90,4 +91,14 @@ if(require.main === module) {
     log('ts2', ts2)
     log('arr2', arr2)
     ensure(off2 === ts2.length - 1, 'test array 2')
+    
+    
+    const code3 = `[{
+        "name": "uga",
+        "data": [true, 1, false, null]
+    }]`
+    const ts3 = jsonTokens(code3)
+    log('ts3', ts3)
+    const [arr3, off3] = parsedArray(ts3, 0)
+    // log('json 3', arr3)
 }

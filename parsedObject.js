@@ -1,7 +1,8 @@
 const {log, ensure} = require('./utils')
 const jsonTokens = require('./jsonTokens')
 const Type = require('./Type')
-const parsedArray = require('./parsedArray')
+let parsedArray
+parsedArray = parsedArray || require('./parsedArray')
 
 // 解析对象
 // i 指向 {
@@ -59,7 +60,7 @@ const parsedObject = (tokens, i) => {
                 obj[kValue] = o
             } else if(vType === Type.bracketLeft) {
                 // 嵌套数组
-                log('嵌套数组')
+                log('嵌套数组', typeof parsedArray)
                 const [arr, off] = parsedArray(tokens, offset)
                 log('nest arr', arr, off)
                 offset = off
@@ -112,5 +113,14 @@ if(require.main === module) {
     const [obj3, off3] = parsedObject(ts3, 0)
     log('obj 3', obj3)
     ensure(off3 === ts3.length - 1, 'test obj 3')
+    
+    const code4 = `{
+        "name": "uga",
+        "data": [true, 1, false, null]
+    }`
+    const ts4 = jsonTokens(code4)
+    log('ts3', ts4)
+    const [arr3, off4] = parsedArray(ts4, 0)
+    log('json 3', arr3)
     
 }

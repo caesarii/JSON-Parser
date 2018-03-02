@@ -35,6 +35,7 @@ if(require.main === module) {
         "data": [true, 1, false, null]
     }]`
     const ts3 = jsonTokens(code3)
+    log('ts3', ts3)
     const js3 = parsedJson(ts3)
     log('json 3', js3)
     
