@@ -1,8 +1,8 @@
 const {log, ensure} = require('./utils')
 const jsonTokens = require('./jsonTokens')
 const Type = require('./Type')
-let parsedArray
-parsedArray = parsedArray || require('./parsedArray')
+
+exports.done = true
 
 // 解析对象
 // i 指向 {
@@ -52,7 +52,6 @@ const parsedObject = (tokens, i) => {
                 obj[kValue] = vValue
             } else if(vType === Type.braceLeft) {
                 // 嵌套对象
-                log('嵌套对象')
                 // offset 当前指向嵌套 {
                 const [o, off] = parsedObject(tokens, offset)
                 // offset 指向 嵌套 }
@@ -60,11 +59,14 @@ const parsedObject = (tokens, i) => {
                 obj[kValue] = o
             } else if(vType === Type.bracketLeft) {
                 // 嵌套数组
-                log('嵌套数组', typeof parsedArray)
-                const [arr, off] = parsedArray(tokens, offset)
-                log('nest arr', arr, off)
-                offset = off
-                obj[kValue] = arr
+                // log('嵌套数组', typeof parsedArray)
+                const {done: doneParsedArray, parsedArray} = require('./parsedArray')
+                // log('Object: doneParsedArray', doneParsedArray)
+                if(doneParsedArray) {
+                    const [arr, off] = parsedArray(tokens, offset)
+                    offset = off
+                    obj[kValue] = arr
+                }
             }
             offset += 1
         } else {
@@ -73,7 +75,7 @@ const parsedObject = (tokens, i) => {
     }
 }
 
-module.exports = parsedObject
+exports.parsedObject = parsedObject
 
 if(require.main === module) {
     // test test parsed object 1
