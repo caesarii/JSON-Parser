@@ -1,8 +1,10 @@
 const {log, ensure} = require('./utils')
 const jsonTokens = require('./jsonTokens')
 const Type = require('./Type')
-let parsedObject
-parsedObject =  parsedObject || require('./parsedObject')
+exports.done = false
+const {done: doneParsedObject, parsedObject} = require('./parsedObject')
+// log('Array: doneParsedObject', doneParsedObject)
+exports.done = true
 
 const parsedArray = (tokens, i) => {
     // i 指向 [
@@ -22,11 +24,14 @@ const parsedArray = (tokens, i) => {
             // ] 解析完成
             return [arr, offset]
         } else if(type === Type.braceLeft) {
-    
             // 解析对象
-            const [obj, off] = parsedObject(tokens, offset)
-            offset = off
-            arr.push(obj)
+            if(doneParsedObject) {
+                const [obj, off] = parsedObject(tokens, offset)
+                exports.done = true
+                offset = off
+                arr.push(obj)
+            }
+            
         } else if(type === Type.number) {
             // 数字
             arr.push(Number(value))
@@ -44,7 +49,7 @@ const parsedArray = (tokens, i) => {
         } else if(type === Type.string) {
             arr.push(value)
         } else {
-            log('未预期的类型', t)
+            // log('未预期的类型', t)
         }
         
         // 指向下一个字符
@@ -53,17 +58,17 @@ const parsedArray = (tokens, i) => {
 }
 
 
-module.exports = parsedArray
+exports.parsedArray = parsedArray
 
 if(require.main === module) {
     // test parsedArray 1
     const code0 = `["name", false, true, null, 123]`
     const ts0 = jsonTokens(code0)
     const [arr0, off0] = parsedArray(ts0, 0)
-    log('ts0', ts0)
+    // log('ts0', ts0)
     log('arr0', arr0)
-    log('test 0', off0, ts0.length)
-    ensure(off0 === ts0.length, 'test parsed array 0')
+    // log('test 0', off0, ts0.length)
+    ensure(off0 === ts0.length - 1, 'test parsed array 0')
     
     // test parsed Array 1
     const code1 = `
@@ -78,7 +83,7 @@ if(require.main === module) {
     `
     const ts1 = jsonTokens(code1)
     const [arr1, off1] = parsedArray(ts1, 0)
-    log('ts1', ts1)
+    // log('ts1', ts1)
     log('arr1', arr1)
     ensure(off1 === ts1.length - 1, 'test parsed array 1')
 
@@ -88,7 +93,7 @@ if(require.main === module) {
      }, [true, 1, false, null]]`
     const ts2 = jsonTokens(code2)
     const [arr2, off2] = parsedArray(ts2, 0)
-    log('ts2', ts2)
+    // log('ts2', ts2)
     log('arr2', arr2)
     ensure(off2 === ts2.length - 1, 'test array 2')
     
@@ -98,7 +103,7 @@ if(require.main === module) {
         "data": [true, 1, false, null]
     }]`
     const ts3 = jsonTokens(code3)
-    log('ts3', ts3)
+    // log('ts3', ts3)
     const [arr3, off3] = parsedArray(ts3, 0)
-    // log('json 3', arr3)
+    log('json 3', arr3)
 }
