@@ -1,8 +1,10 @@
 const jsonTokens = require('./jsonTokens')
 const {log, ensure} = require('./utils')
 const Type = require('./Type')
-const parsedArray = require('./parsedArray')
-const parsedObject = require('./parsedObject')
+const {done:doneParsedArray, parsedArray} = require('./parsedArray')
+const {done: doneParsedObject, parsedObject } = require('./parsedObject')
+
+// log('done',doneParsedArray, doneParsedObject)
 
 const parsedJson = (tokens) => {
     let json = null
@@ -12,14 +14,20 @@ const parsedJson = (tokens) => {
         const t = tokens[i]
         if(t.type === Type.bracketLeft) {
             // 处理数组
-            const [arr, offset] = parsedArray(tokens, i)
-            json = arr
-            i = offset
+            if(doneParsedArray) {
+                const [arr, offset] = parsedArray(tokens, i)
+                json = arr
+                i = offset
+            }
+            
         } else if(t.type === Type.braceLeft) {
             // 处理对象
-            const [obj, offset] = parsedObject(tokens, i)
-            json = obj
-            i = offset
+            if(doneParsedObject) {
+                const [obj, offset] = parsedObject(tokens, i)
+                json = obj
+                i = offset
+            }
+            
         } else {
             log('Error')
         }
@@ -29,13 +37,21 @@ const parsedJson = (tokens) => {
 }
 
 if(require.main === module) {
+    const code2 = `{
+        "name": "uga",
+        "data": [true, 1, false, null]
+    }`
+    const ts2 = jsonTokens(code2)
+    const js2 = parsedJson(ts2)
+    log('json 2', js2)
+    
     
     const code3 = `[{
         "name": "uga",
         "data": [true, 1, false, null]
     }]`
     const ts3 = jsonTokens(code3)
-    log('ts3', ts3)
+    // log('ts3', ts3)
     const js3 = parsedJson(ts3)
     log('json 3', js3)
     

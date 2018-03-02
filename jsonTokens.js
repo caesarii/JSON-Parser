@@ -118,7 +118,7 @@ const jsonTokens = (code) => {
             tokens.push(t)
         } else {
             //
-            log('Error: 非预期的字符') // c.charCodeAt(0)
+            // log('Error: 非预期的字符') // c.charCodeAt(0)
         }
         // i 指向下一个字符
         i = i + 1
@@ -181,6 +181,6 @@ if(require.main === module) {
     }`
     
     const ts5 = jsonTokens(code3)
-    ts5.forEach(t => t.log())
-    log('json tokens 3', ts5)
+    // ts5.forEach(t => t.log())
+    // log('json tokens 3', ts5)
 }

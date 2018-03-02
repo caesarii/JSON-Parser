@@ -3,7 +3,6 @@ const Type = require('./Type.js')
 // log('type', Type)
 class Token{
     constructor(type, value) {
-        log('token', type, value)
         // 单字符符号
         const d = {
             ':': Type.colon,
