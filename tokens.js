@@ -75,7 +75,7 @@ const keywordEnd = (code, index) => {
     return [key, offset - 1]
 }
 
-const jsonTokens = (code) => {
+const tokens = (code) => {
     const length = code.length
     const tokens = []
     // 回车 换行 制表符 空格
@@ -127,7 +127,7 @@ const jsonTokens = (code) => {
     return tokens
 }
 
-module.exports = jsonTokens
+module.exports = tokens
 
 if(require.main === module) {
     
@@ -180,7 +180,7 @@ if(require.main === module) {
         }
     }`
     
-    const ts5 = jsonTokens(code3)
+    const ts5 = tokens(code3)
     // ts5.forEach(t => t.log())
     // log('json tokens 3', ts5)
 }

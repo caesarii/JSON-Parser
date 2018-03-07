@@ -1,4 +1,4 @@
-const jsonTokens = require('./jsonTokens')
+const jsonTokens = require('./tokens')
 const {log, ensure} = require('./utils')
 const Type = require('./Type')
 const {done:doneParsedArray, parsedArray} = require('./parsedArray')
@@ -6,7 +6,7 @@ const {done: doneParsedObject, parsedObject } = require('./parsedObject')
 
 // log('done',doneParsedArray, doneParsedObject)
 
-const parsedJson = (tokens) => {
+const apply = (tokens) => {
     let json = null
     const length = tokens.length
     let i = 0
@@ -42,7 +42,7 @@ if(require.main === module) {
         "data": [true, 1, false, null]
     }`
     const ts2 = jsonTokens(code2)
-    const js2 = parsedJson(ts2)
+    const js2 = apply(ts2)
     log('json 2', js2)
     
     
@@ -52,7 +52,7 @@ if(require.main === module) {
     }]`
     const ts3 = jsonTokens(code3)
     // log('ts3', ts3)
-    const js3 = parsedJson(ts3)
+    const js3 = apply(ts3)
     log('json 3', js3)
     
 }

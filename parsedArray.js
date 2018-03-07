@@ -1,5 +1,5 @@
 const {log, ensure} = require('./utils')
-const jsonTokens = require('./jsonTokens')
+const jsonTokens = require('./tokens')
 const Type = require('./Type')
 exports.done = false
 const {done: doneParsedObject, parsedObject} = require('./parsedObject')
